@@ -1,11 +1,10 @@
-import { Header, Navbar } from '@components/index'
 import React from 'react'
 
-export const Home: React.FC = () => {
-  return (
-    <div>
-      <Navbar />
-      <Header />
-    </div>
-  )
+
+export const HomePage: React.FC = () => {
+    return (
+        <div>
+            homePage
+        </div>
+    )
 }
