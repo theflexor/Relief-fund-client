@@ -1,6 +1,3 @@
-
 export const FundsPage = () => {
-  return (
-    <div>FundsPage</div>
-  )
+    return <div>isken is working</div>
 }
