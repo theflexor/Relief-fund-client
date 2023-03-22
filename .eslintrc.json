@@ -30,7 +30,6 @@
         "block-scoped-var": "off",
         "no-console": "warn",
         "prefer-const": "error",
-        "no-unused-vars": "warn",
         "import/order": 0,
         "simple-import-sort/exports": 1,
         "simple-import-sort/imports": [

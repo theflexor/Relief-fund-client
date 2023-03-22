@@ -1,0 +1,22 @@
+@use '../../styles/' as *;
+
+.myInput {
+    max-width: 300px;
+    width: 100%;
+    &_text {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+        span {
+            font-size: $text_xs;
+            color: $primary__text_2;
+        }
+    }
+    input {
+        width: 100%;
+        height: 48px;
+        outline: none;
+        border: 1px solid $primary_border;
+        border-radius: 10px;
+    }
+}
