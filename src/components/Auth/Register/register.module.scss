@@ -1,22 +1,60 @@
 @use '../../../styles/' as *;
 
+.wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+}
+
 .register {
+    width: 70%;
+    min-width: 350px;
     display: flex;
     flex-direction: column;
+    padding: 30px 100px;
     .main {
-        padding: 85px 0px;
-        border: 1px solid red;
         &_link {
             color: $primary__color;
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            margin-bottom: 15px;
         }
         &_title {
+            margin-bottom: 2rem;
             font-size: $text_xl;
             color: $primary__text;
+        }
+        &_form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            &_inputs {
+                display: flex;
+                justify-content: start;
+                gap: 45px;
+                align-items: center;
+                margin: 15px 0;
+            }
+            &_buttons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                label{
+                    display: flex;
+                    gap: 14px;
+                }
+            }
         }
     }
 }
 
 
+
+.side{
+    flex: 1;
+    height: 100vh;
+    background: url('/public/auth/background.jpg');
+    background-size: cover;
+}

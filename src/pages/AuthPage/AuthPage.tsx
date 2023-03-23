@@ -8,9 +8,7 @@ export const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(false)
     return (
         <div className={styles.auth}>
-            <div className="container">
                 {isLogin ? <Login  /> : <Register />}
-            </div>
         </div>
     )
 }

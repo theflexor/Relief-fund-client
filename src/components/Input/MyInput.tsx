@@ -3,7 +3,6 @@ import { ChangeEvent, FocusEvent } from 'react'
 import styles from './input.module.scss'
 
 type InputProps = {
-    text?: string
     placeholder?: string
     type?: string
     name: string
@@ -14,7 +13,6 @@ type InputProps = {
 }
 
 export const MyInput = ({
-    text,
     placeholder,
     type,
     error,
@@ -26,11 +24,15 @@ export const MyInput = ({
     return (
         <div className={styles.myInput}>
             <p className={styles.myInput_text}>
-                <span>{text}</span>
+                <span>{name}</span>
                 <span>{error}</span>
                 <img src="/questionIcon.png" alt="" />
             </p>
             <input
+                style={{
+                    border: error ? '1px solid red' : '1px solid gray',
+                    transition: '0.3s',
+                }}
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}

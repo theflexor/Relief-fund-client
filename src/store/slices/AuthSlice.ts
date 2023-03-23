@@ -6,6 +6,9 @@ const initialState: AuthTypes = {
     token: '',
 }
 
+
+
+
 export const AuthSlice = createSlice({
     name: 'auth',
     initialState,
@@ -16,6 +19,9 @@ export const AuthSlice = createSlice({
         },
     },
 })
+
+
+
 
 export const { setAuth } = AuthSlice.actions
 export default AuthSlice.reducer
