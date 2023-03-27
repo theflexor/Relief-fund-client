@@ -20,7 +20,7 @@ export const Register = (props: Props) => {
             <div className={styles.main}>
                 <p className={styles.main_link}>
                     Allready a member? <img src="/userIcon.png" alt="user" />
-                </p>
+                </p> 
                 <h1 className={styles.main_title}>
                     Input your <br /> information
                 </h1>
