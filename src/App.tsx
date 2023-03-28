@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify'
 
 import { FundPage } from '@page/FundPage/FundPage'
 
-import { Login, Register, ResetPassword } from './components'
+import { ChangePassword, Login, Register, ResetPassword } from './components'
 import { HomeLayout } from './layout'
 import { AboutPage, FundsPage, HomePage } from './pages'
 
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
             { path: 'login', element: <Login /> },
             { path: '/auth', element: <Register /> },
             { path: '/auth/reset', element: <ResetPassword /> },
+            { path: '/auth/change', element: <ChangePassword /> },
         ],
     },
     {
