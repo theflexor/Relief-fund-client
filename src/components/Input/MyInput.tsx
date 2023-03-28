@@ -31,6 +31,7 @@ export const MyInput = ({
                 <img src="/questionIcon.png" alt="" />
             </p>
             <input
+                style={{ border: error ? '1px solid red' : '1px solid #D1D1D1' }}
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
