@@ -17,7 +17,7 @@ export const Register = () => {
         confirmPassword: '',
         firstName: '',
         lastName: '',
-        selectUserType: { label: '', value: '' },
+        selectUserType: { label: '', value: '', type: '' },
         condition: false,
     }
 
@@ -139,14 +139,17 @@ export const Register = () => {
                                         {
                                             value: 'Only donation ',
                                             label: 'One donation',
+                                            type: 'default_user',
                                         },
                                         {
                                             value: 'User helper',
                                             label: 'User helper',
+                                            type: 'user_helper',
                                         },
                                         {
-                                            value: 'Fond helper',
-                                            label: 'Fond helper',
+                                            value: 'Fund helper',
+                                            label: 'Fund helper',
+                                            type: 'fund',
                                         },
                                     ]}
                                 />

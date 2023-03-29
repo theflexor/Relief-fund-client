@@ -16,6 +16,6 @@ export interface RegisterTypes {
     confirmPassword: string
     firstName: string
     lastName: string
-    selectUserType: { value: string; label: string }
+    selectUserType: { value: string; label: string, type: string }
     condition: boolean
 }
