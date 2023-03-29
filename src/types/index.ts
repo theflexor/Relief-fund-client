@@ -8,8 +8,6 @@ export interface UserTypes {
     age: number
 }
 
-
-
 export interface RegisterTypes {
     email: string
     password: string
@@ -18,4 +16,14 @@ export interface RegisterTypes {
     lastName: string
     selectUserType: { value: string; label: string }
     condition: boolean
+}
+
+export interface donationsTypes {
+    id: number
+    user: string
+    charity_program: string
+    amount: number
+    donation_date: string
+    charity_prigram: string
+    fund: number
 }
