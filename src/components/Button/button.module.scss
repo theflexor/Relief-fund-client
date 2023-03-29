@@ -1,0 +1,13 @@
+@use '../../styles/' as *;
+
+.button {
+    width: 102px;
+    height: 48px;
+    background: $primary__color;
+    border-radius: $primary_radius;
+    font-size: $text_sm;
+    font-weight: 700;
+    color: $primary__text_3;
+    box-shadow: none;
+    border: none;
+}
