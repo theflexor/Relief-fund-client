@@ -13,10 +13,10 @@ const router = createBrowserRouter([
     {
         path: '/auth',
         children: [
-            { path: 'login', element: <Login /> },
             { path: '/auth', element: <Register /> },
-            { path: '/auth/reset', element: <ResetPassword /> },
-            { path: '/auth/change', element: <ChangePassword /> },
+            { path: 'login', element: <Login /> },
+            { path: 'reset', element: <ResetPassword /> },
+            { path: 'change', element: <ChangePassword /> },
         ],
     },
     {

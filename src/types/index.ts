@@ -7,3 +7,15 @@ export interface UserTypes {
     name: string
     age: number
 }
+
+
+
+export interface RegisterTypes {
+    email: string
+    password: string
+    confirmPassword: string
+    firstName: string
+    lastName: string
+    selectUserType: { value: string; label: string }
+    condition: boolean
+}
