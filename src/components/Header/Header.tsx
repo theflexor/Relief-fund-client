@@ -1,20 +1,40 @@
 import { Link } from 'react-router-dom'
 
+import logo from '../../assets/logo.scg.svg'
+import styles from './Header.module.scss'
+
 export const Header = () => {
     return (
-        <div style={{ background: 'yellow' }}>
-            <p>Logo</p>
-            <ul>
-                <li>
-                    <Link to="/">home</Link>
-                </li>
-                <li>
-                    <Link to="/about-us">about us</Link>
-                </li>
-                <li>
-                    <Link to="/funds">funds</Link>
-                </li>
-            </ul>
-        </div>
+        <section className={styles.navbar_section}>
+            <div className={styles.container}>
+                <div className={styles.navbar}>
+                    <Link to="/">
+                        {' '}
+                        <img src={logo} alt="" />
+                    </Link>
+                    <ul className={styles.navbar_list}>
+                        <li>
+                            <Link className={styles.navbar_items} to="/">
+                               Donation 
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={styles.navbar_items}
+                                to="/about-us"
+                            >
+                                About us
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className={styles.navbar_items} to="/funds">
+                                Fonds
+                            </Link>
+                        </li>
+                    </ul>
+                    <button className={styles.login_button}>Login</button>
+                </div>
+            </div>
+        </section>
     )
 }

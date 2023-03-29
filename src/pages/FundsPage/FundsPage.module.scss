@@ -1,0 +1,233 @@
+h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+}
+
+ul {
+    list-style: none;
+}
+hr {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+button {
+    border-radius: 10px;
+}
+
+.container {
+    max-width: 1090px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.help_wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 250px;
+    background-color: #727070;
+    padding-top: 50px;
+    .wrapper_left {
+        display: flex;
+        margin-right: 40px;
+        align-items: center;
+        margin-left: 50px;
+        div {
+            background-color: #3bb54a;
+            border-radius: 30px;
+            font-size: 16px;
+            width: 240px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+    }
+    .wrapper_right {
+        span {
+            font-size: 48px;
+            color: #ffffff;
+        }
+        p {
+            font-size: 24px;
+            line-height: 29px;
+            color: #ffffff;
+        }
+
+        button {
+            margin-top: 90px;
+            background-color: #f08143;
+            width: 280px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            color: #ffffff;
+            border: none;
+            font-size: 24px;
+            margin-bottom: 57px;
+        }
+    }
+}
+
+.aboutFund__title {
+    margin-top: 20px;
+
+    p {
+        max-width: 1000px;
+        line-height: 19px;
+        font-size: 16px;
+        margin: 0 auto;
+    }
+}
+
+.aboutFund_Wrapper {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    .aboutFund_info {
+        display: flex;
+        align-items: center;
+        border: 1px solid #f08143;
+        border-radius: 30px;
+        width: 350px;
+        justify-content: center;
+        height: 65px;
+        .collected {
+            margin-left: 54px;
+            div {
+                font-size: 24px;
+                font-weight: 400;
+            }
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.programms {
+    margin-top: 100px;
+}
+
+.programms_collums {
+    display: flex;
+    justify-content: space-between;
+    .collum {
+        background-color: #727070;
+        width: 320px;
+        height: 480px;
+
+        border-radius: 40px;
+        margin-bottom: 120px;
+
+        .collum_image {
+            border-radius: 40px;
+        }
+
+        img {
+            width: 320px;
+            height: 200px;
+        }
+        span {
+            margin-left: 25%;
+            color: #ffffff;
+            font-size: 32px;
+        }
+        p {
+            margin-top: 30px;
+            color: #ffffff;
+            margin-left: 3%;
+        }
+        button {
+            background-color: #f08143;
+            border: none;
+            color: #ffffff;
+            width: 200px;
+            height: 30px;
+            font-size: 24px;
+            margin-left: 18%;
+            margin-top: 30px;
+        }
+    }
+}
+
+.donate_button {
+    display: flex;
+    justify-content: center;
+    button {
+        background-color: #f08143;
+        border: none;
+        width: 200px;
+        height: 40px;
+        font-size: 18px;
+        color: white;
+        border-radius: 10px;
+    }
+}
+
+.requisites {
+    margin-top: 170px;
+    .bank {
+        h2 {
+            color: #727070;
+            margin-bottom: 10px;
+        }
+        hr {
+            width: 500px;
+        }
+    }
+    .bank_info {
+        display: flex;
+        justify-content: center;
+
+        div {
+            border: 1px solid #000000;
+            height: 120px;
+            font-size: 22px;
+            line-height: 29px;
+            color: #727070;
+            padding: 35px 15px;
+            width: 100%;
+        }
+    }
+}
+
+.contacts {
+    margin-top: 150px;
+    .contact_info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .contact_adress {
+            color: #727070;
+            font-size: 24px;
+            line-height: 34px;
+        }
+        .contact_icons {
+            ul {
+                display: flex;
+                li {
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
+}
+
+.reviews {
+    margin-top: 150px;
+    .reviews_wrapper {
+        display: flex;
+        .reviews_image {
+            width: 200px;
+            height: 100px;
+            border-radius: 10px;
+        }
+    }
+}
