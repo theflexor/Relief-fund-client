@@ -1,25 +1,17 @@
 import { Field, Formik, FormikErrors } from 'formik'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AuthClient } from 'src/api/authApi'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/Input/MyInput'
 import { SelectField } from '@components/Input/MyInputSelect/MyInputSelect'
+import { RegisterTypes } from '@typess/index'
 
 import styles from './register.module.scss'
 
-interface RegisterErrorTypes {
-    email: string
-    password: string
-    confirmPassword: string
-    firstName: string
-    lastName: string
-    selectUserType: { value: string; label: string }
-    condition: boolean
-}
-
 export const Register = () => {
-    const initialValues: RegisterErrorTypes = {
+    const initialValues: RegisterTypes = {
         email: '',
         password: '',
         confirmPassword: '',
@@ -27,6 +19,11 @@ export const Register = () => {
         lastName: '',
         selectUserType: { label: '', value: '' },
         condition: false,
+    }
+
+    const handleAuth = async (values: RegisterTypes) => {
+        const data = await AuthClient.registration(values)
+        console.log(data)
     }
     return (
         <div className={styles.register}>
@@ -39,7 +36,7 @@ export const Register = () => {
                 <Formik
                     initialValues={initialValues}
                     validate={(values) => {
-                        const errors: FormikErrors<RegisterErrorTypes> = {}
+                        const errors: FormikErrors<RegisterTypes> = {}
                         if (values.firstName.length == 0) {
                             errors.firstName = 'Required'
                         }
@@ -68,6 +65,7 @@ export const Register = () => {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         toast(values.firstName)
+                        handleAuth(values)
                         setSubmitting(false)
                     }}
                 >
