@@ -23,14 +23,14 @@ export class AuthClient {
         selectUserType,
     }: RegisterTypes) {
         try {
-            const result = await api.post('/register/', {
+            const result = await api.post('register/', {
                 first_name: firstName,
                 last_name: lastName,
                 username: `${firstName} username`,
                 email: email,
                 password: password,
                 password_confirm: confirmPassword,
-                user_type: selectUserType.value,
+                user_type: selectUserType.type,
             })
             if (result.status == 201) {
                 localStorage.setItem('auth', JSON.stringify(result.data))
