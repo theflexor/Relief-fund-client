@@ -1,16 +1,20 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthClient } from 'src/api/authApi'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/Input/MyInput'
 import { SelectField } from '@components/Input/MyInputSelect/MyInputSelect'
+import { setAuth } from '@store/slices/AuthSlice'
 import { RegisterTypes } from '@typess/index'
 
 import styles from './register.module.scss'
 
 export const Register = () => {
+    const navigate = useNavigate()
+    const [typeUser, setTypeUser] = useState('default_user')
     const initialValues: RegisterTypes = {
         email: '',
         password: '',
@@ -19,11 +23,15 @@ export const Register = () => {
         lastName: '',
         selectUserType: { label: '', value: '', type: '' },
         condition: false,
+        phone: '',
     }
 
     const handleAuth = async (values: RegisterTypes) => {
         const data = await AuthClient.registration(values)
-        console.log(data)
+        if (data?.status == 200) {
+            toast(values.firstName)
+            navigate('/auth/login')
+        }
     }
     return (
         <div className={styles.register}>
@@ -36,6 +44,7 @@ export const Register = () => {
                 <Formik
                     initialValues={initialValues}
                     validate={(values) => {
+                        setTypeUser(values.selectUserType.type)
                         const errors: FormikErrors<RegisterTypes> = {}
                         if (values.firstName.length == 0) {
                             errors.firstName = 'Required'
@@ -48,6 +57,11 @@ export const Register = () => {
                         }
                         if (values.password.length < 3) {
                             errors.password = 'Required'
+                        }
+                        if (values.selectUserType.value === 'user_helper') {
+                            if (!values.phone) {
+                                errors.password = 'Required'
+                            }
                         }
                         if (values.confirmPassword !== values.password) {
                             errors.confirmPassword = 'Error'
@@ -64,7 +78,6 @@ export const Register = () => {
                         return errors
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        toast(values.firstName)
                         handleAuth(values)
                         setSubmitting(false)
                     }}
@@ -82,6 +95,7 @@ export const Register = () => {
                         <form onSubmit={handleSubmit}>
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="text"
                                     name="firstName"
                                     text="First Name"
@@ -95,6 +109,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     type="text"
                                     name="lastName"
                                     text="Last Name"
@@ -111,6 +126,7 @@ export const Register = () => {
                             <div className={styles.main_form_item}>
                                 {' '}
                                 <MyInput
+                                    variant="large"
                                     type="email"
                                     name="email"
                                     text="Email"
@@ -123,6 +139,24 @@ export const Register = () => {
                                         errors.email
                                     }
                                 />
+                                {typeUser == 'user_helper' && (
+                                    <>
+                                        <MyInput
+                                            variant="large"
+                                            type="phone"
+                                            name="phone"
+                                            text="Phone"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={String(values.phone)}
+                                            error={
+                                                errors.phone &&
+                                                touched.phone &&
+                                                errors.phone
+                                            }
+                                        />
+                                    </>
+                                )}
                             </div>
                             <div className={styles.main_form_item}>
                                 <Field
@@ -158,6 +192,7 @@ export const Register = () => {
                             <div className={styles.main_hr} />
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="password"
                                     name="password"
                                     text="Password"
@@ -171,6 +206,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     type="password"
                                     name="confirmPassword"
                                     text="Confirm password"
