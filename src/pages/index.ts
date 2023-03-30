@@ -1,4 +1,6 @@
 export * from './AboutPage/AboutPage'
 export * from './AuthPage/AuthPage'
+export * from './FundPage/FundPage'
 export * from './FundsPage/FundsPage'
 export * from './HomePage/HomePage'
+export * from './ProfilePage/ProfilePage'
