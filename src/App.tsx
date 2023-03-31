@@ -1,11 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
-import { FundPage } from '@page/FundPage/FundPage'
-
 import { ChangePassword, Login, Register, ResetPassword } from './components'
 import { HomeLayout } from './layout'
-import { AboutPage, FundsPage, HomePage } from './pages'
+import { AboutPage, FundPage, FundsPage, HomePage, ProfilePage } from './pages'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -38,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: 'funds/:id',
                 element: <FundPage />,
+            },
+            {
+                path: 'profile',
+                element: <ProfilePage />,
             },
         ],
     },
