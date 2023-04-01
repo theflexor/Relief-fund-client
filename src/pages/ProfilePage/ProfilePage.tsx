@@ -16,7 +16,6 @@ export const ProfilePage = () => {
     const dispatch = useDispatch()
     const [edit, setEdit] = useState<boolean>(true)
     const { isAuth, access, id, user } = useTypedSelector((state) => state.auth)
-    // const [editUser, setEditUser] = useState<UserTypes>(user ? user : {})
     useEffect(() => {
         const fetchData = async () => {
             const res = await UserApi.getProfileData(id)

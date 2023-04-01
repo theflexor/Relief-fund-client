@@ -1,6 +1,8 @@
 import { Field, Formik, FormikErrors } from 'formik'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthClient } from 'src/api/authApi'
 import { Regions, states } from 'src/data'
@@ -81,6 +83,7 @@ export const Register = () => {
                             <div className={styles.main_form_item}>
                                 <MyInput
                                     variant="large"
+                                    variant="large"
                                     type="text"
                                     name="firstName"
                                     text="First Name"
@@ -94,6 +97,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     variant="large"
                                     type="text"
                                     name="lastName"
@@ -111,6 +115,7 @@ export const Register = () => {
                             <div className={styles.main_form_item}>
                                 {' '}
                                 <MyInput
+                                    variant="large"
                                     variant="large"
                                     type="email"
                                     name="email"
@@ -160,10 +165,12 @@ export const Register = () => {
                                         {
                                             value: 'default_user',
                                             label: 'One donation',
+                                            type: 'default_user',
                                         },
                                         {
                                             value: 'user_helper',
                                             label: 'User helper',
+                                            type: 'user_helper',
                                         },
                                         {
                                             value: 'fund',
@@ -191,6 +198,7 @@ export const Register = () => {
                             <div className={styles.main_form_item}>
                                 <MyInput
                                     variant="large"
+                                    variant="large"
                                     type="password"
                                     name="password"
                                     text="Password"
@@ -204,6 +212,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     variant="large"
                                     type="password"
                                     name="confirmPassword"

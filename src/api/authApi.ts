@@ -12,21 +12,17 @@ import {
 import api from './index'
 
 export class AuthClient {
-    static async login({ email, password, saveMe }: LoginTypes) {
-        try {
-            const result = await api.post<LoginResponseTypes>(
-                '/login/',
-                {
-                    email: email,
-                    password: password,
-                },
-            )
-            return result
-        } catch (e: any | AxiosError) {
-            ErrorHandler(e)
-            return
-        }
-    }
+    // static async login(username: string, password: string) {
+    //     try {
+    //         const result = await api.post('/auth/login', { username, password })
+    //         if (result.status == 200) {
+    //             localStorage.setItem('auth', JSON.stringify(result.data))
+    //             return result
+    //         }
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
     static async registration({
         confirmPassword,
         email,
@@ -74,25 +70,20 @@ export class AuthClient {
         email,
     }: changePasswordType) {
         try {
-            const result = await api.post('/forgot_password_complete/', {
-                code: code,
+            const result = await api.post('/register/', {
+                first_name: firstName,
+                last_name: lastName,
+                username: `${firstName} username`,
                 email: email,
                 password: password,
                 password_confirm: confirmPassword,
+                user_type: selectUserType.value,
             })
-            return result
-        } catch (e: any | AxiosError) {
-            console.log(e)
-            ErrorHandler(e)
-        }
-    }
-    static async resetPassword({ email }: { email: string }) {
-        try {
-            const result = await api.post('/forgot-password/', {
-                email: email,
-            })
-            return result
-        } catch (e: any | AxiosError) {
+            if (result.status == 201) {
+                localStorage.setItem('auth', JSON.stringify(result.data))
+                return result
+            }
+        } catch (e) {
             console.log(e)
             ErrorHandler(e)
         }
