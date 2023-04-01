@@ -129,8 +129,7 @@ export const ProfilePage = () => {
                                                 errors.email
                                             }
                                         />
-                                        {user?.user_type ==
-                                            'default_user' && (
+                                        {user?.user_type == 'default_user' && (
                                             <MyInput
                                                 disabled={edit}
                                                 variant="small"

@@ -13,13 +13,10 @@ import api from './index'
 export class AuthClient {
     static async login({ email, password, saveMe }: LoginTypes) {
         try {
-            const result = await api.post<LoginResponseTypes>(
-                '/login/',
-                {
-                    email: email,
-                    password: password,
-                },
-            )
+            const result = await api.post<LoginResponseTypes>('/login/', {
+                email: email,
+                password: password,
+            })
             return result
         } catch (e: any | AxiosError) {
             ErrorHandler(e)
