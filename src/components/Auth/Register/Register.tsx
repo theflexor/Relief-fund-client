@@ -40,7 +40,7 @@ export const Register = () => {
             toast.warn('Please confirm your email to log in', {
                 autoClose: false,
             })
-            navigate('/auth/login')
+            navigate('/login')
         }
         setLoader(false)
     }

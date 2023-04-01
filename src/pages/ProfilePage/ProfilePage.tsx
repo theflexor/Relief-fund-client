@@ -90,7 +90,7 @@ export const ProfilePage = () => {
                                             text="First Name"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.first_name}
+                                            value={values.first_name ? values.first_name : ''}
                                             error={
                                                 errors.first_name &&
                                                 touched.first_name &&
@@ -106,7 +106,7 @@ export const ProfilePage = () => {
                                             text="Last Name"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.last_name}
+                                            value={values.last_name ? values.last_name : ''}
                                             error={
                                                 errors.last_name &&
                                                 touched.last_name &&
@@ -122,7 +122,7 @@ export const ProfilePage = () => {
                                             text="Email"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.email}
+                                            value={values.email ? values.email : ''}
                                             error={
                                                 errors.email &&
                                                 touched.email &&
@@ -139,7 +139,7 @@ export const ProfilePage = () => {
                                                 text="Adress"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values.address}
+                                                value={values.address ? values.address : ''}
                                                 error={
                                                     errors.address &&
                                                     touched.address &&
@@ -157,7 +157,7 @@ export const ProfilePage = () => {
                                             text="Password"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.password}
+                                            value={values.password ? values.password : ''}
                                             error={
                                                 errors.password &&
                                                 touched.password &&
@@ -173,7 +173,7 @@ export const ProfilePage = () => {
                                             text="About me"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.about_user}
+                                            value={values.about_user ? values.about_user : ''}
                                             error={
                                                 errors.about_user &&
                                                 touched.about_user &&
@@ -189,7 +189,7 @@ export const ProfilePage = () => {
                                             text="Requisites"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.requisites}
+                                            value={values.requisites ? values.requisites : ''}
                                             error={
                                                 errors.requisites &&
                                                 touched.requisites &&
@@ -205,7 +205,7 @@ export const ProfilePage = () => {
                                             text="Countries where helper helps "
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.countriesHelps}
+                                            value={values.countriesHelps ? values.countriesHelps : ''}
                                             error={
                                                 errors.countriesHelps &&
                                                 touched.countriesHelps &&
@@ -222,7 +222,7 @@ export const ProfilePage = () => {
                                                 text="Education"
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values.education}
+                                                value={values.education ? values.education : ''}
                                                 error={
                                                     errors.education &&
                                                     touched.education &&
@@ -282,7 +282,7 @@ export const ProfilePage = () => {
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     value={
-                                                        values.countriesHelps
+                                                        values.countriesHelps ? values.countriesHelps : ''
                                                     }
                                                     error={
                                                         errors.countriesHelps &&
@@ -310,7 +310,7 @@ export const ProfilePage = () => {
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     value={
-                                                        values.countriesHelps
+                                                        values.countriesHelps ? values.countriesHelps : ''
                                                     }
                                                     error={
                                                         errors.countriesHelps &&
@@ -338,7 +338,7 @@ export const ProfilePage = () => {
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     value={
-                                                        values.countriesHelps
+                                                        values.countriesHelps ? values.countriesHelps :''
                                                     }
                                                     error={
                                                         errors.countriesHelps &&
