@@ -1,29 +1,48 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { AuthClient } from 'src/api/authApi'
+import { Regions, states } from 'src/data'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/Input/MyInput'
 import { SelectField } from '@components/Input/MyInputSelect/MyInputSelect'
+// import { setAuth } from '@store/slices/AuthSlice'
 import { RegisterTypes } from '@typess/index'
+import { Schema, Schema2 } from '@utils/validation'
 
 import styles from './register.module.scss'
 
 export const Register = () => {
+    const navigate = useNavigate()
+    const [typeUser, setTypeUser] = useState<string | null>('default_user')
+    const [loader, setLoader] = useState<boolean>(false)
+
     const initialValues: RegisterTypes = {
         email: '',
         password: '',
         confirmPassword: '',
         firstName: '',
         lastName: '',
-        selectUserType: { label: '', value: '' },
+        selectUserType: '',
         condition: false,
+        phone: '',
+        region: '',
     }
 
+    const handleType = (text: string) => setTypeUser(text)
     const handleAuth = async (values: RegisterTypes) => {
+        setLoader(true)
         const data = await AuthClient.registration(values)
-        console.log(data)
+        if (data?.status == 200 || data?.status == 201) {
+            toast.success('successfule')
+            toast.warn('Please confirm your email to log in', {
+                autoClose: false,
+            })
+            navigate('/auth/login')
+        }
+        setLoader(false)
     }
     return (
         <div className={styles.register}>
@@ -35,38 +54,17 @@ export const Register = () => {
                 <div className={styles.main_hr} />
                 <Formik
                     initialValues={initialValues}
-                    validate={(values) => {
-                        const errors: FormikErrors<RegisterTypes> = {}
-                        if (values.firstName.length == 0) {
-                            errors.firstName = 'Required'
-                        }
-                        if (values.lastName.length == 0) {
-                            errors.lastName = 'Required'
-                        }
-                        if (!values.selectUserType) {
-                            errors.lastName = 'Required'
-                        }
-                        if (values.password.length < 3) {
-                            errors.password = 'Required'
-                        }
-                        if (values.confirmPassword !== values.password) {
-                            errors.confirmPassword = 'Error'
-                        }
-                        if (!values.email) {
-                            errors.email = 'Required'
-                        } else if (
-                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                values.email,
-                            )
-                        ) {
-                            errors.email = 'Invalid email address'
-                        }
-                        return errors
-                    }}
+                    validationSchema={
+                        typeUser == 'default_user' ? Schema2 : Schema
+                    }
                     onSubmit={(values, { setSubmitting }) => {
-                        toast(values.firstName)
                         handleAuth(values)
                         setSubmitting(false)
+                    }}
+                    validate={(values) => {
+                        if (values.selectUserType !== typeUser) {
+                            handleType(values.selectUserType)
+                        }
                     }}
                 >
                     {({
@@ -82,6 +80,7 @@ export const Register = () => {
                         <form onSubmit={handleSubmit}>
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="text"
                                     name="firstName"
                                     text="First Name"
@@ -95,6 +94,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     type="text"
                                     name="lastName"
                                     text="Last Name"
@@ -111,6 +111,7 @@ export const Register = () => {
                             <div className={styles.main_form_item}>
                                 {' '}
                                 <MyInput
+                                    variant="large"
                                     type="email"
                                     name="email"
                                     text="Email"
@@ -123,12 +124,32 @@ export const Register = () => {
                                         errors.email
                                     }
                                 />
+                                {typeUser !== 'default_user' && (
+                                    <>
+                                        <MyInput
+                                            variant="large"
+                                            type="phone"
+                                            name="phone"
+                                            text="Phone"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={String(values.phone)}
+                                            error={
+                                                errors.phone &&
+                                                touched.phone &&
+                                                errors.phone
+                                            }
+                                        />
+                                    </>
+                                )}
                             </div>
                             <div className={styles.main_form_item}>
                                 <Field
                                     name="selectUserType"
                                     id="selectUserType"
+                                    text="User type"
                                     isMulti={false}
+                                    onChange={handleType}
                                     component={SelectField}
                                     error={
                                         errors.selectUserType &&
@@ -137,24 +158,41 @@ export const Register = () => {
                                     }
                                     options={[
                                         {
-                                            value: 'Only donation ',
+                                            value: 'default_user',
                                             label: 'One donation',
+                                            type: 'default_user',
                                         },
                                         {
-                                            value: 'User helper',
+                                            value: 'user_helper',
                                             label: 'User helper',
+                                            type: 'user_helper',
                                         },
                                         {
-                                            value: 'Fond helper',
-                                            label: 'Fond helper',
+                                            value: 'fund',
+                                            label: 'Fund helper',
                                         },
                                     ]}
                                 />
+                                {/* <MyInput
+                                    variant="large"
+                                    type="text"
+                                    name="username"
+                                    text="Username"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.username}
+                                    error={
+                                        errors.username &&
+                                        touched.username &&
+                                        errors.username
+                                    }
+                                /> */}
                             </div>
 
                             <div className={styles.main_hr} />
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="password"
                                     name="password"
                                     text="Password"
@@ -168,6 +206,7 @@ export const Register = () => {
                                     }
                                 />
                                 <MyInput
+                                    variant="large"
                                     type="password"
                                     name="confirmPassword"
                                     text="Confirm password"
@@ -179,6 +218,32 @@ export const Register = () => {
                                         touched.confirmPassword &&
                                         errors.confirmPassword
                                     }
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    display:
+                                        typeUser == 'default_user'
+                                            ? 'none'
+                                            : 'flex',
+                                }}
+                                className={styles.main_form_item}
+                            >
+                                <Field
+                                    name="region"
+                                    id="region"
+                                    text="Region"
+                                    isMulti={false}
+                                    error={
+                                        errors.region &&
+                                        touched.region &&
+                                        errors.region
+                                    }
+                                    component={SelectField}
+                                    options={Regions.map((text) => ({
+                                        value: text,
+                                        label: text,
+                                    }))}
                                 />
                             </div>
 
@@ -198,7 +263,11 @@ export const Register = () => {
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Submit
+                                        {loader ? (
+                                            <div className="lds-dual-ring"></div>
+                                        ) : (
+                                            <span>Submit</span>
+                                        )}
                                     </PrimeButton>
                                 </div>
                             </div>

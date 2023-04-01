@@ -1,21 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { AuthTypes } from '@typess/index'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuthTypes, LoginResponseTypes, UserTypes } from '@typess/index'
 
 const initialState: AuthTypes = {
+    isAuth: false,
+    id: -1,
     user: null,
-    token: '',
+    refresh: '',
+    access: '',
 }
 
 export const AuthSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setAuth(state, action) {
-            state.token = action.payload.token
-            state.user = action.payload.user
+        setAuth(state, action: PayloadAction<LoginResponseTypes>) {
+            console.log(action)
+            state.isAuth = true
+            state.id = action.payload.id
+            state.access = action.payload.access
+            state.refresh = action.payload.refresh
+        },
+        setDataUser(state, action: PayloadAction<UserTypes>) {
+            state.user = action.payload
         },
     },
 })
 
-export const { setAuth } = AuthSlice.actions
+export const { setAuth, setDataUser } = AuthSlice.actions
 export default AuthSlice.reducer

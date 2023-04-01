@@ -1,5 +1,8 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { AuthClient } from 'src/api/authApi'
+import * as Yup from 'yup'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/Input/MyInput'
@@ -7,20 +10,28 @@ import { MyInput } from '@components/Input/MyInput'
 import styles from './resetPassword.module.scss'
 
 interface LoginErrorTypes {
-    password: string
+    email: string
 }
-
+export const Schema = Yup.object().shape({
+    email: Yup.string().email().required(),
+})
 export const ResetPassword = () => {
+    const navigate = useNavigate()
     const initialValues: LoginErrorTypes = {
-        password: '',
+        email: '',
     }
+
+    const handleForm = async (values: LoginErrorTypes) => {
+        const data = await AuthClient.resetPassword(values)
+        if (data?.status == 200) {
+            toast.success('please check your email')
+            navigate('/auth/change')
+        }
+    }
+
     return (
         <div className={styles.login}>
             <div className={styles.main}>
-                <Link to="/auth" className={styles.main_link}>
-                    <span>Don’t have an account yet?</span>
-                    <img src="/userIcon.png" alt="user" />
-                </Link>
                 <h1 className={styles.main_title}>Forgot password?</h1>
                 <p className={styles.main_paragraph}>
                     Please input your information in the fields below to enter
@@ -29,15 +40,10 @@ export const ResetPassword = () => {
                 <div className={styles.main_hr} />
                 <Formik
                     initialValues={initialValues}
-                    validate={(values) => {
-                        const errors: FormikErrors<LoginErrorTypes> = {}
-
-                        if (values.password.length < 3) {
-                            errors.password = 'Required'
-                        }
-                        return errors
-                    }}
+                    validationSchema={Schema}
                     onSubmit={(values, { setSubmitting }) => {
+                        setSubmitting(true)
+                        handleForm(values)
                         setSubmitting(false)
                     }}
                 >
@@ -54,16 +60,17 @@ export const ResetPassword = () => {
                         <form onSubmit={handleSubmit}>
                             <div className={styles.main_form_item}>
                                 <MyInput
-                                    type="password"
-                                    name="password"
-                                    text="Password"
+                                    variant="large"
+                                    type="email"
+                                    name="email"
+                                    text="Email"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.password}
+                                    value={values.email}
                                     error={
-                                        errors.password &&
-                                        touched.password &&
-                                        errors.password
+                                        errors.email &&
+                                        touched.email &&
+                                        errors.email
                                     }
                                 />
                             </div>
