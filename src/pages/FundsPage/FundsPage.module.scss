@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap');
 h2 {
+    font-family: 'Montserrat';
+    color: #000000;
     font-size: 32px;
     margin-bottom: 12px;
     display: flex;
@@ -16,6 +19,7 @@ hr {
 }
 button {
     border-radius: 10px;
+    font-family: 'Montserrat';
 }
 
 .container {
@@ -35,6 +39,12 @@ button {
         align-items: center;
         margin-left: 50px;
         div {
+            color: #000000;
+
+            font-family: 'Montserrat';
+
+            font-family: 'Montserrat';
+
             background-color: #3bb54a;
             border-radius: 30px;
             font-size: 16px;
@@ -49,10 +59,14 @@ button {
     }
     .wrapper_right {
         span {
+            font-family: 'Montserrat';
+
             font-size: 48px;
             color: #ffffff;
         }
         p {
+            font-family: 'Montserrat';
+
             font-size: 24px;
             line-height: 29px;
             color: #ffffff;
@@ -101,10 +115,14 @@ button {
         .collected {
             margin-left: 54px;
             div {
+                color: #000000;
+
                 font-size: 24px;
                 font-weight: 400;
             }
             span {
+                color: #000000;
+
                 font-size: 14px;
             }
         }
@@ -135,16 +153,22 @@ button {
             height: 200px;
         }
         span {
+            font-family: 'Montserrat';
+
             margin-left: 25%;
             color: #ffffff;
             font-size: 32px;
         }
         p {
+            font-family: 'Montserrat';
+
             margin-top: 30px;
             color: #ffffff;
             margin-left: 3%;
         }
         button {
+            font-family: 'Montserrat';
+
             background-color: #f08143;
             border: none;
             color: #ffffff;
@@ -213,6 +237,7 @@ button {
             ul {
                 display: flex;
                 li {
+                    color: #000000;
                     margin-left: 20px;
                 }
             }
@@ -229,5 +254,50 @@ button {
             height: 100px;
             border-radius: 10px;
         }
+    }
+}
+.make {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.donate_input {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #dddddd;
+    width: 317px;
+    height: 232px;
+    padding-bottom: 20px;
+    align-items: center;
+    p {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #000000;
+    }
+    input {
+        width: 277px;
+        height: 44px;
+        background-color: transparent;
+        border-color: #000000;
+        margin-top: 13px;
+        padding-left: 20px;
+        color: #000000;
+    }
+    button {
+        width: 200px;
+        height: 40px;
+        color: #dddddd;
+        border: none;
+        border-radius: 20px;
+        margin-top: 45px;
+        background-color: #f08143;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

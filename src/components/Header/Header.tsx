@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { DataInfo } from 'src/api/GraphApi'
 
 import logo from '../../assets/logo.scg.svg'
 import styles from './Header.module.scss'
@@ -15,7 +17,7 @@ export const Header = () => {
                     <ul className={styles.navbar_list}>
                         <li>
                             <Link className={styles.navbar_items} to="/">
-                               Donation 
+                                Donation
                             </Link>
                         </li>
                         <li>

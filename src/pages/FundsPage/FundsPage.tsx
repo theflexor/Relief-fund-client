@@ -1,3 +1,8 @@
+import { useState } from 'react'
+import { Donate } from 'src/api/DonateApi'
+
+import { DonateType } from '@typess/index'
+
 import facebook from '../../assets/faceboo.svg'
 import heart from '../../assets/heart.svg'
 import instagram from '../../assets/instagram.svg'
@@ -7,25 +12,35 @@ import wallet from '../../assets/wallet (1) .svg'
 import styles from './FundsPage.module.scss'
 
 export const FundsPage = () => {
+    const [amount, setAmount] = useState<number>(-1)
+    const handleClick = async () => {
+        const obj: DonateType = {
+            amount: amount,
+            id: '28',
+        }
+        const res = await Donate.donateToFund(obj)
+        console.log(res)
+    }
+
     return (
         <div>
-            <section className={styles.help_wrapper}>
-                <div className={styles.wrapper_left}>
-                    <div>Проверенный фонд</div>
-                    <img src={svg} />
-                </div>
-                <div className={styles.wrapper_right}>
-                    <span>название фонда</span>
-                    <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Officia provident nisi ipsa facere, ad fuga esse
-                        labore incidunt ea, ipsum tenetur! Et sed minus officia
-                        vel soluta delectus consectetur architecto?
-                    </p>
-                    <button>помочь фонду</button>
-                </div>
-            </section>
             <div className={styles.container}>
+                <section className={styles.help_wrapper}>
+                    <div className={styles.wrapper_left}>
+                        <div>Проверенный фонд</div>
+                        <img src={svg} />
+                    </div>
+                    <div className={styles.wrapper_right}>
+                        <span>название фонда</span>
+                        <p>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Officia provident nisi ipsa facere, ad fuga
+                            esse labore incidunt ea, ipsum tenetur! Et sed minus
+                            officia vel soluta delectus consectetur architecto?
+                        </p>
+                        <button>помочь фонду</button>
+                    </div>
+                </section>
                 <section className={styles.aboutFund__title}>
                     <h2>О фонде</h2>
                     <hr />
@@ -126,6 +141,17 @@ export const FundsPage = () => {
                     </h2>
                     <div className={styles.donate_button}>
                         <button>Пожертвовать </button>
+                    </div>
+                </section>
+                <section className={styles.make}>
+                    <h2>Make a donation to the organization</h2>
+                    <div className={styles.donate_input}>
+                        <p>Enter the donation amount</p>
+                        <input
+                            onChange={(e) => setAmount(Number(e.target.value))}
+                            type="text"
+                        />
+                        <button onClick={handleClick}>Donate</button>
                     </div>
                 </section>
             </div>

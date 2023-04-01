@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap');
+
+.button_div {
+    font-family: 'Montserrat';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.button {
+    font-family: 'Montserrat';
+    text-decoration: none;
+    background-color: #f5b12d;
+    width: 215px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border: none;
+    color: #ffffff;
+    font-size: 22px;
+    align-items: center;
+}
+
+.container {
+    max-width: 1220px;
+    margin: 0 auto;
+}
+
+.background_video {
+    overflow: hidden;
+    object-fit: cover;
+    width: 98.9vw;
+    height: 85vh;
+    top: 0;
+    left: 0;
+    filter: brightness(40%);
+}
+
+.homePage_info {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffff;
+    margin-top: 212px;
+    top: 15%;
+    left: 31%;
+}
+
+.homePage_title {
+    font-family: 'Montserrat';
+
+    font-size: 46px;
+    z-index: 1;
+}
+
+.homePage_descr {
+    font-family: 'Montserrat';
+
+    width: 675px;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.funds_list {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    img {
+        widows: 125px;
+        height: 125px;
+    }
+}
+
+.funds_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+        font-size: 20px;
+    }
+}
