@@ -1,0 +1,21 @@
+@use '../../../styles/' as *;
+
+.myInput {
+    max-width: 300px;
+    width: 100%;
+    @media screen and (max-width: 800px) {
+        max-width: 100%;
+    }
+    &_text {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 9px;
+        span {
+            font-size: $text_xs;
+            color: $primary__text_2;
+            &:nth-of-type(2) {
+                color: red;
+            }
+        }
+    }
+}

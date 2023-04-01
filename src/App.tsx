@@ -1,21 +1,28 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-import { FundPage } from '@page/FundPage/FundPage'
-
+import { ChangePassword, Login, Register, ResetPassword } from './components'
 import { HomeLayout } from './layout'
-import { AboutPage, AuthPage, FundsPage, HomePage } from './pages'
+import { AboutPage, FundPage, FundsPage, HomePage, ProfilePage } from './pages'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const router = createBrowserRouter([
     {
         path: '/auth',
-        element: <AuthPage />,
+        children: [
+            { path: '/auth', element: <Register /> },
+            { path: 'login', element: <Login /> },
+            { path: 'reset', element: <ResetPassword /> },
+            { path: 'change', element: <ChangePassword /> },
+        ],
     },
     {
         path: '/',
         element: <HomeLayout />,
         children: [
             {
-                path: '/',
+                index: true,
                 element: <HomePage />,
             },
             {
@@ -30,6 +37,10 @@ const router = createBrowserRouter([
                 path: 'funds/:id',
                 element: <FundPage />,
             },
+            {
+                path: 'profile',
+                element: <ProfilePage />,
+            },
         ],
     },
 ])
@@ -38,6 +49,7 @@ export const App = () => {
     return (
         <div>
             <RouterProvider router={router} />
+            <ToastContainer  />
         </div>
     )
 }
