@@ -1,5 +1,6 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { AuthClient } from 'src/api/authApi'
 
 import { PrimeButton } from '@components/Button/Button'
@@ -10,6 +11,7 @@ import { ResetPasswordValidate } from '@utils/validation'
 import styles from './changePassword.module.scss'
 
 export const ChangePassword = () => {
+    const navigate = useNavigate()
     const initialValues: changePasswordType = {
         code: '',
         email: '',
@@ -19,7 +21,10 @@ export const ChangePassword = () => {
 
     const handleForm = async (values: changePasswordType) => {
         const data = await AuthClient.changePassword(values)
-        console.log(data)
+        if (data) {
+            toast.success('success')
+            navigate('/login')
+        }
     }
 
     return (

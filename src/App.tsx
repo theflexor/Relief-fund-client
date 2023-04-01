@@ -10,15 +10,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import HelpersPage from '@page/HelpersPage/HelpersPage'
 
 const router = createBrowserRouter([
-    {
-        path: '/auth',
-        children: [
-            { path: '/auth', element: <Register /> },
-            { path: 'login', element: <Login /> },
-            { path: 'reset', element: <ResetPassword /> },
-            { path: 'change', element: <ChangePassword /> },
-        ],
-    },
+    { path: '/auth', element: <Register /> },
+    { path: '/login', element: <Login /> },
+    { path: '/reset', element: <ResetPassword /> },
+    { path: '/change', element: <ChangePassword /> },
     {
         path: '/',
         element: <HomeLayout />,

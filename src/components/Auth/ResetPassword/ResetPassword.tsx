@@ -25,7 +25,7 @@ export const ResetPassword = () => {
         const data = await AuthClient.resetPassword(values)
         if (data?.status == 200) {
             toast.success('please check your email')
-            navigate('/auth/change')
+            navigate('/change')
         }
     }
 
