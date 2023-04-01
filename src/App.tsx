@@ -7,6 +7,7 @@ import { AboutPage, FundPage, FundsPage, HomePage, ProfilePage } from './pages'
 
 import 'react-toastify/dist/ReactToastify.css'
 
+import FundsPageList from '@page/FundsPageList/FundsPageList'
 import HelpersPage from '@page/HelpersPage/HelpersPage'
 
 const router = createBrowserRouter([
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'funds',
-                element: <FundsPage />,
+                element: <FundsPageList />,
             },
             {
                 path: 'funds/:id',
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <ProfilePage />,
+            },
+            {
+                path: 'helpers',
+                element: <HelpersPage />,
             },
         ],
     },

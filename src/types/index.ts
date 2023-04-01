@@ -367,3 +367,38 @@ export type CountryCode =
     | 'ZA'
     | 'ZM'
     | 'ZW'
+
+export interface FundsType {
+    email: string
+    id: string
+    username: string
+    first_name: string
+    last_name: string
+    user_photo: any
+    telegram_url: string
+    twitter_url: string
+    date_joined: string
+    facebook_url: string
+    user_type: string
+    about_user: string
+    verified_account: boolean
+    phone_number: string
+    your_programs: []
+    region: string
+    category: null | string
+    adress: string
+    requisites: string
+    programs_regions: []
+    programs_regions_quantity: number
+    programs_categories: []
+    fund_donations_sum: number
+    programs_donations_sum: number
+    all_dontaions_sum: number
+}
+
+export interface CurrentFundType {
+    count: number
+    next: null | string
+    previous: null | string
+    results: FundsType[]
+}
