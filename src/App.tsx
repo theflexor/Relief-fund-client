@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <HomeLayout />,
         children: [
             {
-                path: '/',
+                index: true,
                 element: <HomePage />,
             },
             {
@@ -49,7 +49,7 @@ export const App = () => {
     return (
         <div>
             <RouterProvider router={router} />
-            <ToastContainer />
+            <ToastContainer  />
         </div>
     )
 }

@@ -1,23 +1,39 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link,  useNavigate } from 'react-router-dom'
+import { AuthClient } from 'src/api/authApi'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/Input/MyInput'
+import { useTypedDispatch } from '@hooks/index'
+import { setAuth } from '@store/slices/AuthSlice'
+import { LoginTypes } from '@typess/index'
+import { LoginValid } from '@utils/validation'
 
 import styles from './login.module.scss'
 
-interface LoginErrorTypes {
-    email: string
-    password: string
-    saveMe: boolean
-}
-
 export const Login = () => {
-    const initialValues: LoginErrorTypes = {
+    const dispatch = useTypedDispatch()
+    const navigate = useNavigate()
+    const [loader, setLoader] = useState<boolean>(false)
+
+    const initialValues: LoginTypes = {
         email: '',
         password: '',
         saveMe: false,
     }
+
+    const handleForm = async (values: LoginTypes) => {
+        setLoader(true)
+        const res = await AuthClient.login(values)
+        if (res?.status == 200) {
+            console.log('asd');
+            dispatch(setAuth(res.data))
+            navigate('/')
+        }
+        setLoader(false)
+    }
+
     return (
         <div className={styles.login}>
             <div className={styles.main}>
@@ -33,24 +49,9 @@ export const Login = () => {
                 <div className={styles.main_hr} />
                 <Formik
                     initialValues={initialValues}
-                    validate={(values) => {
-                        const errors: FormikErrors<LoginErrorTypes> = {}
-
-                        if (values.password.length < 3) {
-                            errors.password = 'Required'
-                        }
-                        if (!values.email) {
-                            errors.email = 'Required'
-                        } else if (
-                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                values.email,
-                            )
-                        ) {
-                            errors.email = 'Invalid email address'
-                        }
-                        return errors
-                    }}
+                    validationSchema={LoginValid}
                     onSubmit={(values, { setSubmitting }) => {
+                        handleForm(values)
                         setSubmitting(false)
                     }}
                 >
@@ -67,6 +68,7 @@ export const Login = () => {
                         <form onSubmit={handleSubmit}>
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="email"
                                     name="email"
                                     text="Email"
@@ -82,6 +84,7 @@ export const Login = () => {
                             </div>
                             <div className={styles.main_form_item}>
                                 <MyInput
+                                    variant="large"
                                     type="password"
                                     name="password"
                                     text="Password"
@@ -106,7 +109,11 @@ export const Login = () => {
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Submit
+                                        {loader ? (
+                                            <div className="lds-dual-ring"></div>
+                                        ) : (
+                                            <span>Log in</span>
+                                        )}
                                     </PrimeButton>
                                 </div>
                             </div>

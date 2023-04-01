@@ -1,30 +1,33 @@
 import { Field, Formik, FormikErrors } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { UserApi } from 'src/api/UserApi'
 
 import { PrimeButton } from '@components/Button/Button'
 import { MyInput } from '@components/index'
+import { useTypedSelector } from '@hooks/index'
+import { setDataUser } from '@store/slices/AuthSlice'
 import { RegisterTypes, UserTypes } from '@typess/index'
 
 import styles from './profilePage.module.scss'
 
 export const ProfilePage = () => {
-    const initialValues: UserTypes = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        address: '',
-        aboutMe: '',
-        requisites: '',
-        countriesHelps: '',
-        education: '',
-        password: '',
-        confirmPassword: '',
-    }
-
-    const [Type, setType] = useState<string>('user_helpers')
+    const dispatch = useDispatch()
     const [edit, setEdit] = useState<boolean>(true)
+    const { isAuth, access, id, user } = useTypedSelector((state) => state.auth)
+    // const [editUser, setEditUser] = useState<UserTypes>(user ? user : {})
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await UserApi.getProfileData(id)
+            if (res?.status == 200) {
+                dispatch(setDataUser(res?.data))
+                // setEditUser(res.data)
+            }
+        }
+        fetchData()
+    }, [])
+
     const handleAuth = async (values: UserTypes) => {
         // const data = await AuthClient.registration(values)
         // console.log(data)
@@ -58,40 +61,9 @@ export const ProfilePage = () => {
                         </div>
                         <div className={styles.profile_form}>
                             <Formik
-                                initialValues={initialValues}
-                                validate={(values) => {
-                                    // setTypeUser(values.selectUserType.type)
-                                    const errors: FormikErrors<RegisterTypes> =
-                                        {}
-                                    if (values.firstName.length == 0) {
-                                        errors.firstName = 'Required'
-                                    }
-                                    if (values.lastName.length == 0) {
-                                        errors.lastName = 'Required'
-                                    }
-
-                                    if (values.password.length < 4) {
-                                        errors.password = 'Required'
-                                    }
-                                    if (
-                                        values.confirmPassword !==
-                                        values.password
-                                    ) {
-                                        errors.confirmPassword = 'Error'
-                                    }
-                                    if (!values.email) {
-                                        errors.email = 'Required'
-                                    } else if (
-                                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                            values.email,
-                                        )
-                                    ) {
-                                        errors.email = 'Invalid email address'
-                                    }
-                                    return errors
-                                }}
+                                initialValues={user ? user : {}}
                                 onSubmit={(values, { setSubmitting }) => {
-                                    toast(values.firstName)
+                                    toast(values.first_name)
                                     handleAuth(values)
                                     setSubmitting(false)
                                 }}
@@ -115,15 +87,15 @@ export const ProfilePage = () => {
                                             variant="small"
                                             noDesc
                                             type="text"
-                                            name="firstName"
+                                            name="first_name"
                                             text="First Name"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.firstName}
+                                            value={values.first_name}
                                             error={
-                                                errors.firstName &&
-                                                touched.firstName &&
-                                                errors.firstName
+                                                errors.first_name &&
+                                                touched.first_name &&
+                                                errors.first_name
                                             }
                                         />
                                         <MyInput
@@ -135,11 +107,11 @@ export const ProfilePage = () => {
                                             text="Last Name"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.lastName}
+                                            value={values.last_name}
                                             error={
-                                                errors.lastName &&
-                                                touched.lastName &&
-                                                errors.lastName
+                                                errors.last_name &&
+                                                touched.last_name &&
+                                                errors.last_name
                                             }
                                         />
                                         <MyInput
@@ -158,38 +130,26 @@ export const ProfilePage = () => {
                                                 errors.email
                                             }
                                         />
-                                        <MyInput
-                                            disabled={edit}
-                                            variant="small"
-                                            noDesc
-                                            type="phone"
-                                            name="phone"
-                                            text="Phone"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={String(values.phone)}
-                                            error={
-                                                errors.phone &&
-                                                touched.phone &&
-                                                errors.phone
-                                            }
-                                        />
-                                        <MyInput
-                                            disabled={edit}
-                                            variant="small"
-                                            noDesc
-                                            type="adress"
-                                            name="adress"
-                                            text="Adress"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.address}
-                                            error={
-                                                errors.address &&
-                                                touched.address &&
-                                                errors.address
-                                            }
-                                        />
+                                        {user?.user_type ==
+                                            'default_user' && (
+                                            <MyInput
+                                                disabled={edit}
+                                                variant="small"
+                                                noDesc
+                                                type="adress"
+                                                name="adress"
+                                                text="Adress"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.address}
+                                                error={
+                                                    errors.address &&
+                                                    touched.address &&
+                                                    errors.address
+                                                }
+                                            />
+                                        )}
+
                                         <MyInput
                                             disabled={edit}
                                             variant="small"
@@ -215,11 +175,11 @@ export const ProfilePage = () => {
                                             text="About me"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.aboutMe}
+                                            value={values.about_user}
                                             error={
-                                                errors.aboutMe &&
-                                                touched.aboutMe &&
-                                                errors.aboutMe
+                                                errors.about_user &&
+                                                touched.about_user &&
+                                                errors.about_user
                                             }
                                         />
                                         <MyInput

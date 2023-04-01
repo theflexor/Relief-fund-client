@@ -7,16 +7,18 @@ import styles from './myInputSelect.module.scss'
 type SelectFieldProps = {
     options: { value: string; label: string }[]
     error: string
+    text: string
 }
 export const SelectField: React.FC<FieldProps & SelectFieldProps> = ({
     field,
     form,
     options,
     error,
+    text,
 }) => (
     <div className={styles.myInput}>
         <p className={styles.myInput_text}>
-            <span>User type</span>
+            <span>{text}</span>
             <span>{error}</span>
             <img src="/questionIcon.png" alt="" />
         </p>
@@ -48,7 +50,11 @@ export const SelectField: React.FC<FieldProps & SelectFieldProps> = ({
                       )
                     : ''
             }
-            onChange={(option) => form.setFieldValue(field.name, option)}
+            onChange={(options) => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                form.setFieldValue(field.name, options.value)
+            }}
             onBlur={field.onBlur}
         />
     </div>

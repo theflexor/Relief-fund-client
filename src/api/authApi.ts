@@ -1,70 +1,100 @@
 import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 
-import { RegisterTypes } from './../types/index'
+import { ErrorHandler } from '@utils/ErrorHandler'
+
+import {
+    changePasswordType,
+    LoginResponseTypes,
+    LoginTypes,
+    RegisterTypes,
+} from './../types/index'
 import api from './index'
 
 export class AuthClient {
-    static async login(email: string, password: string) {
+    static async login({ email, password, saveMe }: LoginTypes) {
         try {
-            const result = await api.post('/login', { email, password })
-            if (result.status == 200) {
-                localStorage.setItem('auth', JSON.stringify(result.data))
-                return result
-            }
-        } catch (e) {
-            console.log(e)
+            const result = await api.post<LoginResponseTypes>(
+                '/login/',
+                {
+                    email: email,
+                    password: password,
+                },
+            )
+            return result
+        } catch (e: any | AxiosError) {
+            ErrorHandler(e)
+            return
         }
     }
     static async registration({
-        condition,
         confirmPassword,
         email,
         firstName,
         lastName,
         password,
         selectUserType,
+        phone,
+        region,
     }: RegisterTypes) {
+        const config = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            password_confirm: confirmPassword,
+            user_type: selectUserType,
+        }
+        const config2 = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            password_confirm: confirmPassword,
+            user_type: selectUserType,
+            phone_number: phone,
+            region: region?.trim(),
+        }
         try {
-            const result = await api.post('register/', {
-                first_name: firstName,
-                last_name: lastName,
-                username: `${firstName} username`,
+            const result = await api.post(
+                'register/',
+                selectUserType == 'default_user' ? config : config2,
+            )
+            return result
+        } catch (e: any | AxiosError) {
+            console.log(e)
+            ErrorHandler(e)
+            return e
+        }
+    }
+    static async changePassword({
+        code,
+        confirmPassword,
+        password,
+        email,
+    }: changePasswordType) {
+        try {
+            const result = await api.post('/forgot_password_complete/', {
+                code: code,
                 email: email,
                 password: password,
                 password_confirm: confirmPassword,
-                user_type: selectUserType.type,
             })
-            if (result.status == 200) {
-                localStorage.setItem('auth', JSON.stringify(result.data))
-                return result
-            }
+            return result
         } catch (e: any | AxiosError) {
-            toast.error(e?.response?.data?.username[0])
-            if (e?.response?.data?.username.length > 1) {
-                toast.error(e?.response?.data?.username[1])
-            }
             console.log(e)
-            return
+            ErrorHandler(e)
         }
     }
-    static async changePassword(
-        password: string,
-        newPassword: string,
-        confirmPassword: string,
-    ) {
+    static async resetPassword({ email }: { email: string }) {
         try {
-            const result = await api.post('/change-password', {
-                old_password: password,
-                new_password: newPassword,
-                new_password_confirm: confirmPassword,
+            const result = await api.post('/forgot-password/', {
+                email: email,
             })
-            if (result.status == 200) {
-                localStorage.setItem('auth', JSON.stringify(result.data))
-                return result
-            }
-        } catch (e) {
+            return result
+        } catch (e: any | AxiosError) {
             console.log(e)
+            ErrorHandler(e)
         }
     }
 }
